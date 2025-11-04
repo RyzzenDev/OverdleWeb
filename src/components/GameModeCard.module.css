@@ -1,0 +1,108 @@
+.card {
+  /* Layout principal: ícone do lado do texto */
+  display: flex;
+  align-items: center; /* Alinha o ícone e o texto verticalmente */
+  gap: 0rem; /* Espaço entre o ícone e o bloco de texto */
+
+  /* Remove qualquer decoração de link */
+  text-decoration: none;
+  color: #ffffff; /* Garante que o texto seja branco */
+
+  width: 100%; /* Ocupa a largura máxima disponível */
+  max-width: 500px; /* Mas não passa de 500px (igual a logo) */
+}
+
+.icon {
+  /* Apenas para garantir que a imagem não quebre o layout */
+  width: 280px; /* Ajuste esse tamanho se o ícone for maior/menor */
+  height: auto;
+}
+
+.textContainer {
+  /* Para o texto e as linhas */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  margin-left: -50px ;
+}
+
+.title {
+  font-size: 7.0rem; 
+  font-weight: 700; 
+  margin: 0; 
+  line-height: 0.8;
+  
+  /* 1. O gradiente e a animação (rodando o tempo todo) */
+  background-image: linear-gradient(
+    to right, 
+    #fff, 
+    #f97316 40%, 
+    #f97316 60%, 
+    #fff
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: animateGradient 2s linear infinite;
+  animation-play-state: running;
+  
+  /* 2. Por padrão, a cor é BRANCA */
+  color: #fff;
+
+  /* 3. MUDANÇA: ESTA É A TRANSIÇÃO "DE SAÍDA" */
+  /* Quando o mouse sair, levará 0.5s para voltar ao branco. */
+  transition: color 0.5s ease-out;
+}
+
+.orangeLine {
+  width: 150px; /* Largura da linha laranja */
+  height: 4px;
+  background-color: #f97316; 
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 2.8rem;
+  margin: 0;
+  letter-spacing: 1px;
+  
+  /* 1. O gradiente e a animação (rodando o tempo todo) */
+  background-image: linear-gradient(
+    to right, 
+    #fff, 
+    #f97316 40%, 
+    #f97316 60%, 
+    #fff
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: animateGradient 2s linear infinite;
+  animation-play-state: running;
+  
+  /* 2. Por padrão, a cor é BRANCA */
+  color: #fff;
+
+  /* 3. MUDANÇA: ESTA É A TRANSIÇÃO "DE SAÍDA" */
+  transition: color 0.5s ease-out;
+}
+
+.card:hover .title,
+.card:hover .subtitle {
+  /* 1. Revela a animação */
+  color: transparent;
+
+  /* 2. MUDANÇA: ESTA É A TRANSIÇÃO "DE ENTRADA" */
+  /* Quando o mouse entrar, levará 0.1s para ficar transparente. */
+  transition: color 0.1s ease-in;
+}
+@keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
