@@ -1,0 +1,58 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  min-height: 100vh;
+  padding-top: 19px;
+  gap: 2rem;
+}
+.dividerLine{
+width: 10%;
+max-width: 500px;
+height: 3px;
+background-color: white;
+}
+/* (O .logo também deve estar aqui) */
+.logo {
+  max-width: 90%; 
+  width: 500px;  
+  height: auto;  
+}
+.footerContainer {
+  margin-top: auto;      /* Empurra para o fundo (como antes) */
+
+  /* --- MÁGICA DO ALINHAMENTO --- */
+  display: flex;         /* Coloca o texto e o ícone lado a lado */
+  align-items: center;   /* Alinha eles verticalmente */
+  gap: 0.5rem;         /* Um espacinho entre o texto e o ícone */
+
+  /* Estilos do Texto (como antes) */
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 2. Adicione este estilo para o LINK */
+.footerLink {
+  color: #fff; /* Cor branca sólida (mais destaque) */
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #f97316; /* Efeito hover laranja */
+}
+
+/* 3. Adicione este estilo para o ÍCONE */
+.footerIcon {
+  /* Isso faz o ícone ter a mesma opacidade do texto */
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+/* Quando passar o mouse em QUALQUER LUGAR do footer, o ícone brilha */
+.footerContainer:hover .footerIcon {
+  opacity: 1;
+}
