@@ -1,5 +1,5 @@
-import Image from 'next/image'; // Importa o componente de Imagem
-import styles from './page.module.css'; // Importa nossos novos estilos
+import Image from 'next/image'; 
+import styles from './page.module.css'; 
 import GameModeCard from '../components/GameModeCard'; 
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
         priority 
       />
       <GameModeCard
-      href="/hero"
+      href="/overdleHero"
       title="HERO"
       subtitle="GUESS THE HERO"
       iconSrc="/images/Heroicon.svg"
@@ -32,7 +32,7 @@ export default function Home() {
   <span>
     MADE WITH LOVE 💗 BY{' '}
     <a 
-      href="https://github.com/RyzzenDev" // <-- COLOQUE SEU LINK AQUI
+      href="https://github.com/RyzzenDev" 
       target="_blank" 
       rel="noopener noreferrer" 
       className={styles.footerLink}
@@ -41,15 +41,15 @@ export default function Home() {
     </a>
   </span>
   <a
-    href="https://github.com/RyzzenDev" // <-- COLOQUE O MESMO LINK AQUI
+    href="https://github.com/RyzzenDev"
     target="_blank" 
     rel="noopener noreferrer"
-    aria-label="GitHub Profile" // Bom para acessibilidade
+    aria-label="GitHub Profile" 
   >
   <Image
-    src="/images/github-mark-white.png" // <-- Mude se o nome do seu arquivo for outro
+    src="/images/github-mark-white.png" 
     alt="GitHub Icon"
-    width={20} // Tamanho do ícone (ajuste se precisar)
+    width={20}
     height={20}
     className={styles.footerIcon}
     />

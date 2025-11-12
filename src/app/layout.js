@@ -6,16 +6,14 @@ const minhaFonte = localFont({
   weight: '700',
   style: 'normal',
 });
-
 export const metadata = {
   title: "Overdle",
-  description: "O jogo de adivinhação de Overwatch",
+  description: "Overwatch guessing Game",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      
+    
       <body className={minhaFonte.className} suppressHydrationWarning={true}>
         {children}
       </body>
