@@ -20,19 +20,14 @@ background-color: white;
 }
 .footerContainer {
   margin-top: auto;     
-
-
   display: flex;       
   align-items: center;   
   gap: 0.5rem;    
-
-
   font-size: 2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.7);
 }
-
 
 .footerLink {
   color: #fff; 
@@ -45,14 +40,34 @@ background-color: white;
   color: #f97316;
 }
 
-
 .footerIcon {
- 
   opacity: 0.7;
   transition: opacity 0.2s ease;
 }
 
-
 .footerContainer:hover .footerIcon {
   opacity: 1;
+}
+.disclaimerSeparator {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+.disclaimerButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 2rem;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+}
+
+.disclaimerButton:hover {
+  color: #f97316;
 }

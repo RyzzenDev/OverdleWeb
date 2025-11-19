@@ -1,9 +1,12 @@
-/* Arquivo CSS atualizado */
+
 
 .main {
   --ow-orange: #ED6516;
-  --ow-dark-blue: rgba(0, 0, 0, 0.8);
-  --ow-orange-transparent: rgba(237, 101, 22, 0.4); /* Laranja com 40% de opacidade */
+  --ow-black-transparent: rgba(0, 0, 0, 0.8);
+  --ow-orange-transparent: rgba(237, 101, 22, 0.4);
+  --color-correct: #259924;
+  --color-wrong: #960000;
+  /* ------------------------------- */
 
   display: flex;
   flex-direction: column;
@@ -19,7 +22,7 @@
 .guessBox {
   padding: 0.75rem 3rem;
   margin-bottom: 1.25rem;
-  background-color: var(--ow-dark-blue);
+  background-color: var(--ow-black-transparent);
   border: 4px solid var(--ow-orange);
   border-radius: 1rem; /* 16px */
 }
@@ -37,28 +40,19 @@
   max-width: 24rem;
 }
 
-/* --- ESTA É A SEÇÃO IMPORTANTE --- */
-/* Este div vai alinhar a barra e os botões em uma linha */
 .searchRow {
   display: flex;
-  align-items: center; /* Alinha verticalmente os botões e a barra */
-  width: 100%;
+  align-items: center;
+  width: 110%;
 }
 
 .searchBar {
-  /* display: flex; (REMOVIDO) */
-  /* align-items: center; (REMOVIDO) */
-
-  /* --- CORREÇÃO ÚNICA AQUI --- */
-  flex-grow: 1; /* Era 0, mudei para 1 para empurrar o botão */
-
+  flex-grow: 1;
   padding: 1rem;
-  background-color: var(--ow-dark-blue);
-
+  background-color: var(--ow-black-transparent);
   border: 4px solid var(--ow-orange);
-  border-radius: 1rem; /* 16px */
+  border-radius: 1rem;
 }
-/* --- FIM DA SEÇÃO IMPORTANTE --- */
 
 .searchInput {
   flex-grow: 1;
@@ -77,13 +71,9 @@
   font-size: 2rem;
   font-weight: 700;
   border-radius: 0.5rem;
-
-  /* --- MUDANÇAS AQUI --- */
-  background-color: var(--ow-orange); /* Fundo escuro (como você pediu) */
+  background-color: var(--ow-orange);
   color:#FFFFFF;
-  border: 4px solid #FFFFFF; /* Borda laranja adicionada */
-  /* --- FIM DAS MUDANÇAS --- */
-
+  border: 4px solid #FFFFFF;
   cursor: pointer;
 }
 
@@ -95,30 +85,35 @@
   margin-top: 0.25rem;
   max-height: 15rem;
   overflow-y: auto;
-  background-color: var(--ow-dark-blue);
+  background-color: var(--ow-black-transparent);
   z-index: 10;
   border: 4px solid var(--ow-orange);
-  border-radius: 1rem; /* 16px */
-  /* Remove o padding do container para a linha ir de ponta a ponta */
+  border-radius: 1rem;
   padding: 0;
-  /* --- ADICIONADO (Para Firefox) --- */
-  scrollbar-width: none;
-  /* --- ADICIONADO (Para IE/Edge antigo) --- */
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: white var(--ow-black-transparent);
 }
+
 .dropdown::-webkit-scrollbar {
-  display: none;
+  width: 8px;
 }
+.dropdown::-webkit-scrollbar-track {
+  background: var(--ow-black-transparent);
+  border-radius: 10px;
+}
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: var(--ow-orange);
+  border-radius: 10px;
+  border: 1px solid var(--ow-black-transparent);
+}
+
 
 .dropdownItem {
   display: flex;
   align-items: center;
-  /* Aumentei o padding lateral para compensar o do container */
   padding: 0.75rem 5rem;
   cursor: pointer;
-
-  /* --- ADICIONADO --- */
-  position: relative; /* Necessário para a linha ::before */
+  position: relative;
 }
 
 .dropdownItem + .dropdownItem {
@@ -129,13 +124,10 @@
   content: '';
   position: absolute;
   top: 0;
-
   left: 5rem;
   right: 5rem;
-
   height: 3px;
   background-color: #FFFFFF;
-
   border-radius: 99px ;
 }
 
@@ -154,4 +146,301 @@
   padding-left: 20px;
   font-weight: 600;
   color: white;
+}
+
+.guessesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+
+  background-color: var(--ow-black-transparent);
+  border: 5px solid var(--ow-orange);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.guessHeader {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.headerCell {
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+  line-height: 1.2;
+}
+
+.guessRow {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.5rem;
+}
+.guessCell {
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--ow-black-transparent);
+  border: 2px solid white;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: revealCell 0.5s ease-out backwards;
+}
+
+.correct {
+  background-color: var(--color-correct);
+  border-color: #ffffff;
+}
+
+.wrong {
+  background-color: var(--color-wrong);
+  border-color: var(--color-wrong);
+}
+
+.guessCellImage {
+  width: 100%;
+  height: 100%;
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.guessCellValue {
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valueWithArrow {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  padding-bottom: 5px;
+  gap: 0.5rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.arrow {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.up {
+  color: white;
+}
+
+.down {
+  color: white;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background-color: var(--ow-black-transparent);
+  border: 5px solid var(--ow-orange);
+  border-radius: 20px;
+  padding: 2rem;
+  padding-top: 3rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.2s ease-out;
+}
+
+.modalCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background-color: var(--ow-orange);
+  color: white;
+  border: 2px solid white;
+  border-radius: 20%;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1px;
+  transition: transform 0.2s ease;
+}
+
+.modalCloseButton:hover {
+  transform: scale(1.1);
+}
+
+.modalTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--ow-orange);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.modalSubtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ow-orange);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--ow-orange-transparent);
+  padding-bottom: 0.5rem;
+}
+
+.modalList {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.modalList li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.modalList li::before {
+  content: '►';
+  color: var(--ow-orange);
+  font-size: 0.8rem;
+  margin-right: 0.75rem;
+}
+
+.modalColorCorrect {
+  color: #33cc33;
+  font-weight: 700;
+}
+.modalColorWrong {
+  color: #ff0000;
+  font-weight: 700;
+}
+
+.modalOverlayClosing {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.modalContentClosing {
+  animation: zoomOut 0.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.9); opacity: 0; }
+}
+
+
+.winModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 4rem;
+}
+
+.winModalImage {
+  border-radius: 50%;
+  border: 4px solid var(--ow-orange);
+  margin-bottom: 1.5rem;
+}
+
+.winModalHeroName {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--ow-orange);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.winModalAttempts {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0.5rem 0 0 0;
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.9); opacity: 0; }
+}
+
+@keyframes revealCell {
+  from {
+    opacity: 0;
+    transform: translateY(-15px); /* Começa um pouco acima */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.countdownTimer {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--ow-black-transparent);
+  border: 2px solid var(--ow-orange);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
