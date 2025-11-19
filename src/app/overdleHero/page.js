@@ -306,7 +306,7 @@ export default function OverdleHeroPage() {
       <div className={styles.logoContainer}>
         <Link href="/">
         <Image
-          src="/Images/Logo.svg"
+          src="/Images/icon.svg"
           alt="Overdle Logo"
           width={500}
           height={150}

@@ -16,7 +16,7 @@ export default function Home() {
       <main className={styles.main}>
         <Image
           className={styles.logo}
-          src="/Images/Logo.svg"
+          src="/Images/icon.svg"
           alt="Overdle "
           width={500}
           height={150}
@@ -26,14 +26,15 @@ export default function Home() {
           href="/overdleHero"
           title="HERO"
           subtitle="GUESS THE HERO"
-          iconSrc="/images/Heroicon.svg"
+          iconSrc="/Images/Heroicon.svg"
         />
         <div className={styles.dividerLine}></div>
         <GameModeCard
           href="/ability"
           title="ABILITY"
           subtitle="GUESS THE ABILITY"
-          iconSrc="/images/Abilityicon.svg"
+          iconSrc="/Images/Abilityicon.svg"
+          disabled
         />
         <div className={styles.footerContainer}>
           <div className={styles.footerTextGroup}> 
@@ -57,7 +58,7 @@ export default function Home() {
             aria-label="GitHub Profile"
           >
             <Image
-              src="/images/github-mark-white.png"
+              src="/Images/github-mark-white.png"
               alt="GitHub Icon"
               width={20}
               height={20}

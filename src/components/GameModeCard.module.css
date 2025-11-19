@@ -97,3 +97,36 @@
     background-position: 200% 50%;
   }
 }
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+}
+
+.disabled .icon,
+.disabled .textContainer {
+  filter: grayscale(100%);
+  opacity: 0.4; /* Deixa o fundo bem apagado para o texto laranja brilhar */
+}
+
+/* Texto flutuante */
+.developmentOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 3px solid #525252;
+  color: #f97316;
+
+  padding: 1rem 2rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+  z-index: 10;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}

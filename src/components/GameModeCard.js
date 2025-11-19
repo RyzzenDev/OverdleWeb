@@ -2,13 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link'; 
 import styles from './GameModeCard.module.css'; 
 
+export default function GameModeCard({ title, subtitle, iconSrc, href, disabled }) {
 
-export default function GameModeCard({ title, subtitle, iconSrc, href }) {
+  // Se estiver disabled, usamos uma 'div', senão usamos o 'Link'
+  const Component = disabled ? 'div' : Link;
+
   return (
-  
-    <Link href={href} className={styles.card}>
-
-     
+    <Component
+      href={!disabled ? href : undefined}
+      className={`${styles.card} ${disabled ? styles.disabled : ''}`}
+    >
       <Image
         src={iconSrc}
         alt={`${title} icon`}
@@ -17,7 +20,6 @@ export default function GameModeCard({ title, subtitle, iconSrc, href }) {
         className={styles.icon}
       />
 
-    
       <div className={styles.textContainer}>
         <h2 className={styles.title}>{title}</h2>
         <div className={styles.orangeLine}></div>
@@ -25,6 +27,13 @@ export default function GameModeCard({ title, subtitle, iconSrc, href }) {
         <div className={styles.whiteLine}></div>
       </div>
 
-    </Link>
+      {/* Se estiver disabled, mostramos o aviso */}
+      {disabled && (
+        <div className={styles.developmentOverlay}>
+          Still in development
+        </div>
+      )}
+
+    </Component>
   );
 }
