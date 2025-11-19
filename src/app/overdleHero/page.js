@@ -65,6 +65,7 @@ function GuessCell({ value, result, isPortrait = false, delay = 0 }) {
 
 export default function OverdleHeroPage() {
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredHeroes, setFilteredHeroes] = useState([]);
   const [allHeroes, setAllHeroes] = useState([]);
@@ -87,7 +88,7 @@ export default function OverdleHeroPage() {
 
     const fetchHeroes = async () => {
       try {
-        const response = await fetch('https://overdle-api.onrender.com/Heroes/ListDB');
+        const response = await fetch(`${API_URL}/Heroes/ListDB`);
         if (!response.ok) {
           throw new Error('Failed to fetch API data. Status: ' + response.status);
         }
@@ -104,7 +105,7 @@ export default function OverdleHeroPage() {
       let fetchedGameId = null;
 
       try {
-        const idResponse = await fetch('https://overdle-api.onrender.com/Heroes/GameCount');
+        const idResponse = await fetch(`${API_URL}/Heroes/GameCount`);
         if (!idResponse.ok) {
           throw new Error('Failed to fetch current game ID');
         }
@@ -163,7 +164,7 @@ export default function OverdleHeroPage() {
 
     const fetchNextHeroTime = async () => {
       try {
-        const response = await fetch('https://overdle-api.onrender.com/Heroes/Date');
+        const response = await fetch(`${API_URL}/Heroes/Date`);
         if (!response.ok) throw new Error('Failed to fetch timer');
         const generationTimestamp = await response.json();
         const generationTime = new Date(generationTimestamp);
@@ -239,7 +240,7 @@ export default function OverdleHeroPage() {
     setFilteredHeroes([]);
 
     const heroId = hero.id;
-    const apiUrl = `https://overdle-api.onrender.com/Heroes/Guess/${heroId}`;
+    const apiUrl = `${API_URL}/Heroes/Guess/${heroId}`
 
     console.log("Sending guess (via dropdown) for:", apiUrl);
 
