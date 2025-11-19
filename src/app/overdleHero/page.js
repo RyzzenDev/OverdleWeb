@@ -42,15 +42,22 @@ function GuessCell({ value, result, isPortrait = false, delay = 0 }) {
   const animationStyle = { animationDelay: `${delay * 0.15}s` };
 
   if (isPortrait) {
+    const isValidImage = value && value !== "";
+
     return (
       <div className={cellClass} style={animationStyle}>
-        <Image
-          src={value}
-          alt="Hero Portrait"
-          width={50}
-          height={50}
-          className={styles.guessCellImage}
-        />
+        {isValidImage ? (
+          <Image
+            src={value}
+            alt="Hero Portrait"
+            width={50}
+            height={50}
+            className={styles.guessCellImage}
+            unoptimized={true}
+          />
+        ) : (
+          <span style={{ fontSize: '24px', fontWeight: 'bold' }}>?</span>
+        )}
       </div>
     );
   }
