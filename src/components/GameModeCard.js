@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link'; 
-import styles from './GameModeCard.module.css'; 
+import Link from 'next/link';
+import styles from './GameModeCard.module.css';
 
 export default function GameModeCard({ title, subtitle, iconSrc, href, disabled }) {
 
@@ -15,8 +15,8 @@ export default function GameModeCard({ title, subtitle, iconSrc, href, disabled 
       <Image
         src={iconSrc}
         alt={`${title} icon`}
-        width={80} 
-        height={80} 
+        width={80}
+        height={80}
         className={styles.icon}
       />
 

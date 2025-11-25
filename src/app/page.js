@@ -37,7 +37,7 @@ export default function Home() {
           disabled
         />
         <div className={styles.footerContainer}>
-          <div className={styles.footerTextGroup}> 
+          <div className={styles.footerTextGroup}>
             <span>
               MADE WITH LOVE 💗 BY{' '}
               <a
