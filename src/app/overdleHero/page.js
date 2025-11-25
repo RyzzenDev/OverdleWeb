@@ -87,6 +87,7 @@ export default function OverdleHeroPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentGameId, setCurrentGameId] = useState(null);
   const STORAGE_KEY = 'overdleHero_gameState';
+
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -136,7 +137,8 @@ export default function OverdleHeroPage() {
       const resultData = await response.json();
       console.log("API Response:", resultData);
 
-      const newGuesses = [resultData, ...guesses];
+      const newGuess = { ...resultData, id: Date.now() };
+      const newGuesses = [newGuess, ...guesses];
       setGuesses(newGuesses);
 
       let stateToSave = {};
@@ -153,7 +155,7 @@ export default function OverdleHeroPage() {
         setIsGameWon(true);
 
         stateToSave = {
-          gameId: currentGameId, // <-- Salva o ID do jogo atual (ex: 69)
+          gameId: currentGameId,
           guesses: newGuesses,
           winData: newWinData
         };
@@ -161,7 +163,7 @@ export default function OverdleHeroPage() {
       } else {
 
         stateToSave = {
-          gameId: currentGameId, // <-- Salva o ID do jogo atual (ex: 69)
+          gameId: currentGameId,
           guesses: newGuesses,
           winData: null
         };
@@ -246,7 +248,11 @@ export default function OverdleHeroPage() {
 
             if (savedState.gameId === fetchedGameId) {
               if (savedState.guesses) {
-                setGuesses(savedState.guesses);
+                const loadedGuesses = savedState.guesses.map((g, i) => ({
+                  ...g,
+                  id: g.id || `loaded-${i}-${Date.now()}`
+                }));
+                setGuesses(loadedGuesses);
               }
 
               if (savedState.winData) {
@@ -351,16 +357,15 @@ export default function OverdleHeroPage() {
             height={150}
             priority
           />
-        </Link >
-      </div >
+        </Link>
+      </div>
 
       {isLoading && (
         <div className={styles.loadingOverlay}>
           <div className={styles.loadingSpinner}></div>
           <div className={styles.loadingText}>Loading Heroes...</div>
         </div>
-      )
-      }
+      )}
 
       <div className={styles.guessBox}>
         <h2 className={styles.guessBoxTitle}>
@@ -372,51 +377,49 @@ export default function OverdleHeroPage() {
         {isGameWon ? "Guessed!" : `Next Hero In: ${countdown}`}
       </div>
 
-      {
-        !isGameWon && (
-          <div className={styles.searchContainer}>
-            <div className={styles.searchRow}>
-              <div className={styles.searchBar}>
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={handleSearch}
-                  className={styles.searchInput}
-                />
-              </div>
-              <button
-                className={styles.searchButton}
-                onClick={() => setShowInstructions(true)}
-              >
-                {"?"}
-              </button>
+      {!isGameWon && (
+        <div className={styles.searchContainer}>
+          <div className={styles.searchRow}>
+            <div className={styles.searchBar}>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearch}
+                className={styles.searchInput}
+              />
             </div>
-
-            {filteredHeroes.length > 0 && (
-              <div className={styles.dropdown}>
-                {filteredHeroes.map((hero) => (
-                  <div
-                    key={hero.id}
-                    className={styles.dropdownItem}
-                    onClick={() => handleHeroSelect(hero)}
-                  >
-                    <Image
-                      src={hero.heroPortrait}
-                      alt={hero.heroName}
-                      width={60}
-                      height={60}
-                      className={styles.dropdownImage}
-                    />
-                    <span className={styles.dropdownName}>
-                      {hero.heroName}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <button
+              className={styles.searchButton}
+              onClick={() => setShowInstructions(true)}
+            >
+              {"?"}
+            </button>
           </div>
-        )
-      }
+
+          {filteredHeroes.length > 0 && (
+            <div className={styles.dropdown}>
+              {filteredHeroes.map((hero) => (
+                <div
+                  key={hero.id}
+                  className={styles.dropdownItem}
+                  onClick={() => handleHeroSelect(hero)}
+                >
+                  <Image
+                    src={hero.heroPortrait}
+                    alt={hero.heroName}
+                    width={60}
+                    height={60}
+                    className={styles.dropdownImage}
+                  />
+                  <span className={styles.dropdownName}>
+                    {hero.heroName}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className={styles.guessesContainer}>
         <div className={styles.guessHeader}>
@@ -432,8 +435,7 @@ export default function OverdleHeroPage() {
         </div>
 
         {guesses.map((guess, index) => (
-          <div key={index} className={styles.guessRow}>
-            {/* Note a prop 'delay' incrementando sequencialmente */}
+          <div key={guess.id || index} className={styles.guessRow}>
             <GuessCell
               value={guess.guessedHeroPortrait}
               isPortrait={true}
@@ -484,68 +486,64 @@ export default function OverdleHeroPage() {
         ))}
       </div>
 
-      {
-        (showInstructions || isClosing) && (
+      {(showInstructions || isClosing) && (
+        <div
+          className={`${styles.modalOverlay} ${isClosing ? styles.modalOverlayClosing : ''}`}
+          onClick={handleCloseInstructions}
+        >
           <div
-            className={`${styles.modalOverlay} ${isClosing ? styles.modalOverlayClosing : ''}`}
-            onClick={handleCloseInstructions}
+            className={`${styles.modalContent} ${isClosing ? styles.modalContentClosing : ''}`}
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className={`${styles.modalContent} ${isClosing ? styles.modalContentClosing : ''}`}
-              onClick={(e) => e.stopPropagation()}
+            <button
+              className={styles.modalCloseButton}
+              onClick={handleCloseInstructions}
             >
-              <button
-                className={styles.modalCloseButton}
-                onClick={handleCloseInstructions}
-              >
-                &times;
-              </button>
-              <h2 className={styles.modalTitle}>How to Play</h2>
-              <ul className={styles.modalList}>
-                <li>Type a hero's name in the search bar.</li>
-                <li>Click the desired hero from the menu to submit your guess.</li>
-                <li>A new row will appear with your guess's results.</li>
-              </ul>
-              <h3 className={styles.modalSubtitle}>Understanding Colors and Arrows</h3>
-              <ul className={styles.modalList}>
-                <li><span className={styles.modalColorCorrect}>Green</span>: The attribute is correct.</li>
-                <li><span className={styles.modalColorWrong}>Red</span>: The attribute is wrong.</li>
-                <li><span className={styles.modalColorWrong}>Red with an Arrow (↑)</span>: The correct number is **HIGHER** (e.g., Age, Health, Year).</li>
-                <li><span className={styles.modalColorWrong}>Red with an Arrow (↓)</span>: The correct number is **LOWER** (e.g., Age, Health, Year).</li>
-              </ul>
+              &times;
+            </button>
+            <h2 className={styles.modalTitle}>How to Play</h2>
+            <ul className={styles.modalList}>
+              <li>Type a hero's name in the search bar.</li>
+              <li>Click the desired hero from the menu to submit your guess.</li>
+              <li>A new row will appear with your guess's results.</li>
+            </ul>
+            <h3 className={styles.modalSubtitle}>Understanding Colors and Arrows</h3>
+            <ul className={styles.modalList}>
+              <li><span className={styles.modalColorCorrect}>Green</span>: The attribute is correct.</li>
+              <li><span className={styles.modalColorWrong}>Red</span>: The attribute is wrong.</li>
+              <li><span className={styles.modalColorWrong}>Red with an Arrow (↑)</span>: The correct number is **HIGHER** (e.g., Age, Health, Year).</li>
+              <li><span className={styles.modalColorWrong}>Red with an Arrow (↓)</span>: The correct number is **LOWER** (e.g., Age, Health, Year).</li>
+            </ul>
+          </div>
+        </div>
+      )}
+      {showWinModal && winData && (
+        <div
+          className={`${styles.modalOverlay}`}
+        >
+          <div
+            className={`${styles.modalContent} ${styles.winModal}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className={styles.modalTitle}>You Guessed It!</h2>
+            <h2 className={styles.modalTitle}>come back tomorrow for more!</h2>
+            <Image
+              src={winData.portrait}
+              alt={winData.name}
+              width={150}
+              height={150}
+              className={styles.winModalImage}
+            />
+            <h3 className={styles.winModalHeroName}>{winData.name}</h3>
+            <p className={styles.winModalAttempts}>
+              You guessed it in {winData.attempts} {winData.attempts === 1 ? 'try' : 'tries'}!
+            </p>
+            <div className={styles.winModalAttempts}>
+              Next Hero In: {countdown}
             </div>
           </div>
-        )
-      }
-      {
-        showWinModal && winData && (
-          <div
-            className={`${styles.modalOverlay}`}
-          >
-            <div
-              className={`${styles.modalContent} ${styles.winModal}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 className={styles.modalTitle}>You Guessed It!</h2>
-              <h2 className={styles.modalTitle}>come back tomorrow for more!</h2>
-              <Image
-                src={winData.portrait}
-                alt={winData.name}
-                width={150}
-                height={150}
-                className={styles.winModalImage}
-              />
-              <h3 className={styles.winModalHeroName}>{winData.name}</h3>
-              <p className={styles.winModalAttempts}>
-                You guessed it in {winData.attempts} {winData.attempts === 1 ? 'try' : 'tries'}!
-              </p>
-              <div className={styles.winModalAttempts}>
-                Next Hero In: {countdown}
-              </div>
-            </div>
-          </div>
-        )
-      }
-    </main >
+        </div>
+      )}
+    </main>
   );
 }
