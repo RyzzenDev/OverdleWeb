@@ -52,6 +52,7 @@
   border: 4px solid var(--ow-orange);
   border-radius: 1rem;
   cursor: text;
+  cursor: text;
 }
 
 .searchInput {

@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import GameModeCard from '../components/GameModeCard';
-import DisclaimerModal from '../components/DisclaimerModal'; // 👈 Importe o Modal
-import { useState } from 'react'; // 👈 Importe useState
+import DisclaimerModal from '../components/DisclaimerModal';
+import { useState } from 'react';
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // 👈 Estado para o Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <main className={styles.main}>

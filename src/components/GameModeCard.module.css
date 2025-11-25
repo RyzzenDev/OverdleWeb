@@ -1,19 +1,27 @@
 .card {
 
+
   display: flex;
+  align-items: center;
+  gap: 0rem;
   align-items: center;
   gap: 0rem;
 
 
+
   text-decoration: none;
+  color: #ffffff;
   color: #ffffff;
 
   width: 100%;
   max-width: 500px;
   margin-right: 3rem;
+  max-width: 500px;
+  margin-right: 3rem;
 }
 
 .icon {
+
 
   width: 280px;
   height: auto;
@@ -21,10 +29,12 @@
 
 .textContainer {
 
+
   display: flex;
   flex-direction: column;
   flex: 1;
 
+  margin-left: -50px;
   margin-left: -50px;
 }
 
@@ -32,7 +42,16 @@
   font-size: 7.0rem;
   font-weight: 700;
   margin: 0;
+  font-size: 7.0rem;
+  font-weight: 700;
+  margin: 0;
   line-height: 0.8;
+
+  background-image: linear-gradient(to right,
+      #fff,
+      #f97316 40%,
+      #f97316 60%,
+      #fff);
 
   background-image: linear-gradient(to right,
       #fff,
@@ -45,6 +64,7 @@
   animation: animateGradient 2s linear infinite;
   animation-play-state: running;
 
+
   color: #fff;
 
 
@@ -54,6 +74,7 @@
 .orangeLine {
   width: 150px;
   height: 4px;
+  background-color: #f97316;
   background-color: #f97316;
   margin-top: 4px;
   margin-bottom: 4px;
@@ -69,11 +90,18 @@
       #f97316 40%,
       #f97316 60%,
       #fff);
+
+  background-image: linear-gradient(to right,
+      #fff,
+      #f97316 40%,
+      #f97316 60%,
+      #fff);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   animation: animateGradient 2s linear infinite;
   animation-play-state: running;
+
 
   color: #fff;
 
@@ -87,10 +115,12 @@
   transition: color 0.1s ease-in;
 }
 
+
 @keyframes animateGradient {
   0% {
     background-position: 0% 50%;
   }
+
 
   100% {
     background-position: 200% 50%;
