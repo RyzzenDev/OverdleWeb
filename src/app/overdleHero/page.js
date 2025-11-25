@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -88,6 +88,8 @@ export default function OverdleHeroPage() {
   const [currentGameId, setCurrentGameId] = useState(null);
   const STORAGE_KEY = 'overdleHero_gameState';
 
+  const inputRef = useRef(null);
+
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -137,14 +139,13 @@ export default function OverdleHeroPage() {
       const resultData = await response.json();
       console.log("API Response:", resultData);
 
-      const newGuess = { ...resultData, id: Date.now() };
+      const newGuess = { ...resultData, id: `guess-${Date.now()}-${Math.random()}` };
       const newGuesses = [newGuess, ...guesses];
       setGuesses(newGuesses);
 
       let stateToSave = {};
 
       if (checkWinCondition(resultData)) {
-        // --- [ O USUÁRIO GANHOU ] ---
         const newWinData = {
           name: resultData.guessedName,
           portrait: resultData.guessedHeroPortrait,
@@ -190,7 +191,7 @@ export default function OverdleHeroPage() {
   useEffect(() => {
     const fetchHeroes = async () => {
       const HEROES_STORAGE_KEY = 'overdleHero_heroesList';
-      const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+      const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000;
 
       try {
         if (typeof window !== 'undefined') {
@@ -250,7 +251,7 @@ export default function OverdleHeroPage() {
               if (savedState.guesses) {
                 const loadedGuesses = savedState.guesses.map((g, i) => ({
                   ...g,
-                  id: g.id || `loaded-${i}-${Date.now()}`
+                  id: `loaded-${i}-${Date.now()}-${Math.random()}`
                 }));
                 setGuesses(loadedGuesses);
               }
@@ -353,8 +354,8 @@ export default function OverdleHeroPage() {
           <Image
             src="/Images/icon.svg"
             alt="Overdle Logo"
-            width={500}
-            height={150}
+            width={300}
+            height={90}
             priority
           />
         </Link>
@@ -380,8 +381,12 @@ export default function OverdleHeroPage() {
       {!isGameWon && (
         <div className={styles.searchContainer}>
           <div className={styles.searchRow}>
-            <div className={styles.searchBar}>
+            <div
+              className={styles.searchBar}
+              onClick={() => inputRef.current?.focus()}
+            >
               <input
+                ref={inputRef}
                 type="text"
                 value={searchTerm}
                 onChange={handleSearch}
@@ -435,7 +440,7 @@ export default function OverdleHeroPage() {
         </div>
 
         {guesses.map((guess, index) => (
-          <div key={guess.id || index} className={styles.guessRow}>
+          <div key={guess.id} className={styles.guessRow}>
             <GuessCell
               value={guess.guessedHeroPortrait}
               isPortrait={true}

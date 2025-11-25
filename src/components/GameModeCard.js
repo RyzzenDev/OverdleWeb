@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link'; 
-import styles from './GameModeCard.module.css'; 
+import Link from 'next/link';
+import styles from './GameModeCard.module.css';
 
 export default function GameModeCard({ title, subtitle, iconSrc, href, disabled }) {
 
-  // Se estiver disabled, usamos uma 'div', senão usamos o 'Link'
   const Component = disabled ? 'div' : Link;
 
   return (
@@ -15,8 +14,8 @@ export default function GameModeCard({ title, subtitle, iconSrc, href, disabled 
       <Image
         src={iconSrc}
         alt={`${title} icon`}
-        width={80} 
-        height={80} 
+        width={80}
+        height={80}
         className={styles.icon}
       />
 
@@ -26,8 +25,6 @@ export default function GameModeCard({ title, subtitle, iconSrc, href, disabled 
         <p className={styles.subtitle}>{subtitle}</p>
         <div className={styles.whiteLine}></div>
       </div>
-
-      {/* Se estiver disabled, mostramos o aviso */}
       {disabled && (
         <div className={styles.developmentOverlay}>
           Still in development
