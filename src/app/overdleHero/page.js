@@ -127,7 +127,7 @@ export default function OverdleHeroPage() {
     const heroId = hero.id;
     const apiUrl = `${API_URL}/Heroes/Guess/${heroId}`
 
-    console.log("Sending guess (via dropdown) for:", apiUrl);
+
 
     try {
       const response = await fetch(apiUrl, { method: 'POST' });
@@ -137,7 +137,6 @@ export default function OverdleHeroPage() {
       }
 
       const resultData = await response.json();
-      console.log("API Response:", resultData);
 
       const newGuess = { ...resultData, id: `guess-${Date.now()}-${Math.random()}` };
       const newGuesses = [newGuess, ...guesses];
