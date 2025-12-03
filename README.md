@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Logo do OverDaily](/public/Images/icon.svg)
+# ⚛️ OverDaily Frontend
 
-## Getting Started
+> The user interface (UI) and client application for the daily guessing game set in the Overwatch universe.
 
-First, run the development server:
+This repository holds the complete frontend codebase for **OverDaily**, a daily challenge game that tests players' knowledge of Overwatch Heroes based on their attributes, data, and various clues. Developed with **Next.js** and **React**, the project focuses on offering a fast, responsive, and visually immersive user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🔗 Backend Connection
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The frontend application communicates with the **OverDaily API** to fetch daily challenge data, the complete list of heroes, and submit guesses for validation.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The dedicated backend repository, which manages the core game logic and data persistence using **Java 21 / Spring Boot 3** and **Redis**, can be found here:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### [👉 OverDaily API Repository](https://github.com/RyzzenDev/Overdle-API)
 
-## Learn More
+## 🎮 Play Now
 
-To learn more about Next.js, take a look at the following resources:
+The application is hosted on Vercel and the live game can be accessed directly at:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### [👉 overdle.vercel.app](https://overdle.vercel.app)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚡ Key Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Daily Challenge Interface:** Presents the main interface for the hero guessing game, showing clues and user guesses.
+* **Guessing System:** Handles user input, search functionality, and displays color-coded feedback (Green/Red with directional arrows).
+* **Performance:** Leverages **Next.js**'s App Router architecture for efficient rendering and fast loading speeds.
+* **State Persistence:** Uses Local Storage to maintain game continuity (current game ID and previous guesses).
+* **Game Modes Platform:** Features a modular homepage ready to host future game mode expansions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🚀 Tech Stack
+
+| Category | Technology | Details |
+| :--- | :--- | :--- |
+| **Framework** | ![Next.js](https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js&logoColor=white) | The core framework, built on React, for routing and rendering. |
+| **Library** | ![React](https://img.shields.io/badge/React-19.2.1-61DAFB?style=flat&logo=react&logoColor=black) | UI library. |
+| **Language** | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | Primary development language. |
+| **Styling** | ![CSS Modules](https://img.shields.io/badge/CSS_Modules-264DE4?style=flat&logo=css3&logoColor=white) | Modular, highly customized styling. |
+| **Deployment** | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) | Hosting platform. |
+
+---
+
+## 🔮 Roadmap & Future Features
+
+The frontend architecture is designed to seamlessly integrate the following new game modes planned for the backend, showing continuous development commitment:
+
+* **Ability Mode:** Guess the Hero based on ability icons or descriptions.
+* **Voice Line Mode:** Challenge your knowledge by identifying Heroes from obscure voice lines.
+* **Map Guessing:** A visual mode to guess the Overwatch map from a screenshot.
+* **Ultimate Mode:** A specialized mode focusing entirely on Ultimate voice lines and sound effects.
+
+---
+
+## 📝 License & Disclaimer
+
+The code in this repository is licensed under the **GNU General Public License, Version 3**.
+
+**Disclaimer:** OverDaily is a non-official, fan-made project created as a tribute to the Overwatch™ universe. Overwatch™ and all related intellectual properties (characters, names, art, sounds, etc.) are registered trademarks and property of Blizzard Entertainment, Inc.©. The project is entirely free and non-profit.
