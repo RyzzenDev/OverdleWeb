@@ -127,8 +127,6 @@ export default function OverdleHeroPage() {
     const heroId = hero.id;
     const apiUrl = `${API_URL}/Heroes/Guess/${heroId}`
 
-
-
     try {
       const response = await fetch(apiUrl, { method: 'POST' });
 
@@ -286,36 +284,19 @@ export default function OverdleHeroPage() {
     };
 
     const fetchNextHeroTime = async () => {
-      const TIMER_STORAGE_KEY = 'overdleHero_nextHeroTime';
       try {
         let releaseTime;
 
-        if (typeof window !== 'undefined') {
-          const cached = localStorage.getItem(TIMER_STORAGE_KEY);
-          if (cached) {
-            const parsed = new Date(parseInt(cached));
-            if (parsed.getTime() > new Date().getTime()) {
-              releaseTime = parsed;
-            }
-          }
+        const response = await fetch(`${API_URL}/Heroes/Date`);
+        if (!response.ok) throw new Error('Failed to fetch timer');
+        const generationTimestamp = await response.json();
+        const generationTime = new Date(generationTimestamp);
+
+        if (isNaN(generationTime.getTime())) {
+          throw new Error("Formato de data inválido recebido do backend: " + generationTimestamp);
         }
 
-        if (!releaseTime) {
-          const response = await fetch(`${API_URL}/Heroes/Date`);
-          if (!response.ok) throw new Error('Failed to fetch timer');
-          const generationTimestamp = await response.json();
-          const generationTime = new Date(generationTimestamp);
-
-          if (isNaN(generationTime.getTime())) {
-            throw new Error("Formato de data inválido recebido do backend: " + generationTimestamp);
-          }
-
-          releaseTime = new Date(generationTime.getTime() + (24 * 60 * 60 * 1000));
-
-          if (typeof window !== 'undefined') {
-            localStorage.setItem(TIMER_STORAGE_KEY, releaseTime.getTime().toString());
-          }
-        }
+        releaseTime = new Date(generationTime.getTime() + (24 * 60 * 60 * 1000));
 
         const timerInterval = setInterval(() => {
           const now = new Date();
@@ -324,9 +305,6 @@ export default function OverdleHeroPage() {
           if (remainingTime <= 0) {
             setCountdown("New hero available!");
             clearInterval(timerInterval);
-            if (typeof window !== 'undefined') {
-              localStorage.removeItem(TIMER_STORAGE_KEY);
-            }
 
           } else {
             setCountdown(formatDuration(Math.floor(remainingTime / 1000)));
