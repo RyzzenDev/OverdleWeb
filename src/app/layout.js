@@ -1,5 +1,6 @@
 import "./globals.css";
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 
 const minhaFonte = localFont({
   src: '../fonts/big_noodle_titling_oblique.ttf',
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
     
       <body className={minhaFonte.className} suppressHydrationWarning={true}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
