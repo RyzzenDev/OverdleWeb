@@ -9,7 +9,7 @@ import styles from './page.module.css';
 function GuessCell({ value, result, isPortrait = false, delay = 0 }) {
 
   const getColorClass = () => {
-    if (result === 'Correct') return styles.correct; // Verde
+    if (result === 'Correct') return styles.correct;
     if (result) return styles.wrong;
     return '';
   };
@@ -188,16 +188,24 @@ export default function OverdleHeroPage() {
   useEffect(() => {
     const fetchHeroes = async () => {
       const HEROES_STORAGE_KEY = 'overdleHero_heroesList';
-      const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000;
 
       try {
+        // 1. Fetch current hero count from server
+        const countResponse = await fetch(`${API_URL}/Service/Count`);
+        let serverCount = null;
+
+        if (countResponse.ok) {
+          serverCount = await countResponse.json();
+        }
+
+        // 2. Check Local Storage
         if (typeof window !== 'undefined') {
           const cachedData = localStorage.getItem(HEROES_STORAGE_KEY);
           if (cachedData) {
-            const { heroes, timestamp } = JSON.parse(cachedData);
-            const now = new Date().getTime();
+            const { heroes, count } = JSON.parse(cachedData);
 
-            if (now - timestamp < CACHE_DURATION) {
+            // If we have a valid server count and it matches the cached count, use cache
+            if (serverCount !== null && count === serverCount) {
               setAllHeroes(heroes);
               setIsLoading(false);
               return;
@@ -205,6 +213,7 @@ export default function OverdleHeroPage() {
           }
         }
 
+        // 3. If no cache or count mismatch, fetch full list
         const response = await fetch(`${API_URL}/Heroes/ListDB`);
         if (!response.ok) {
           throw new Error('Failed to fetch API data. Status: ' + response.status);
@@ -212,9 +221,11 @@ export default function OverdleHeroPage() {
         const data = await response.json();
         setAllHeroes(data);
 
+        // 4. Update Cache with new list and count
         if (typeof window !== 'undefined') {
           localStorage.setItem(HEROES_STORAGE_KEY, JSON.stringify({
             heroes: data,
+            count: data.length, // Store count for future checks
             timestamp: new Date().getTime()
           }));
         }
