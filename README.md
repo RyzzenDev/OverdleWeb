@@ -17,7 +17,7 @@ The dedicated backend repository, which manages the core game logic and data per
 
 The application is hosted on Vercel and the live game can be accessed directly at:
 
-### [👉 overdle.vercel.app](https://overdle.vercel.app)
+### [👉 overdle.com](https://www.overdle.com)
 
 ---
 
